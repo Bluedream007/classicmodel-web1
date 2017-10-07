@@ -1,0 +1,71 @@
+<p>This is the partial for companyInfo-employee.</p>
+
+
+<button id="btnClose1" type="button" class="btn btn-default">Hide</button>
+
+<div class="container">
+  <h2>Collapsible Methods</h2>
+  <p>The toggle method toggles the collapsible content.</p>
+  <p>The show method shows the collapsible content.</p>
+  <p>The hide method hides the collapsible content.</p>
+  <button type="button" class="btn btn-primary">Toggle</button>
+  <button type="button" class="btn btn-success">Show</button>
+  <button type="button" class="btn btn-warning">Hide</button>
+
+  <div class="collapse">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </div>
+
+  <div id="txtPanel2" class="collapse">
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+
+    $(".btn-primary").click(function(){
+      $(".collapse").collapse('toggle');
+    });
+    $(".btn-success").click(function(){
+      $(".collapse").collapse('show');
+    });
+
+    $(".btn-warning").click(function(){
+      $(".collapse").collapse('hide');
+    });
+
+    $("#btnClose1").click(function(){
+      $("#txtPanel2").collapse('hide');
+    });
+
+
+  });
+</script>
+
+
+
+
+<nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,147 @@
+/* Blue theme1 begin ----------- */
+
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 400px;
+    height: 300px;
+}
+
+/* DataGrid begin ----------- */
+.gridHeadBoderStyle1 {
+    border:solid 1px;
+    border-color: #12125c;
+}
+
+.gridHeadStyle1 {
+    border: 1px solid #234170;
+    background: #6a83b0;
+    color: #c7d6ff;
+}
+
+.gridCellStyle1 {
+    border: 1px solid #387038;
+    background: #cbe1e1;
+    color: #146255;
+}
+
+.gridCellBoderStyle1 {
+    border:solid 1px;
+    border-color: #425d6e;
+}
+
+/* Style2 ----*/
+.gridHeadStyle2 {
+    border: 1px solid #234170;
+    background: rgba(57, 115, 145, 0.61);
+    color: #c7d6ff;
+}
+
+/* DataGrid end ----------- */
+
+/* Dialog begin ----------- */
+.dialog-defaultBodyStyle1 {
+    border: 1px solid rgba(44, 44, 96, 0.97);
+    background: rgba(45, 185, 255, 0.19);
+    color: #2c2c60;
+}
+
+.dialog-defaultFootStyle1 {
+    border: 1px solid rgba(44, 44, 96, 0.97);
+    background: rgba(55, 126, 194, 0.62);
+    color: #c7d6ff;
+}
+
+.dialog-warningHeadStyle1 {
+    border: 1px solid rgba(169, 80, 97, 0.79);
+    background: #ffaac8;
+    color: #c7d6ff;
+}
+
+.dialog-warningFootStyle1 {
+    border: 1px solid rgba(112, 28, 29, 0.79);
+    background: #cf6d8c;
+    color: #c7d6ff;
+}
+
+.dialog-alertHeadStyle1 {
+    border: 1px solid rgba(169, 123, 113, 0.79);
+    background: #ffd39c;
+    color: #c7d6ff;
+}
+
+.dialog-alertFootStyle1 {
+    border: 1px solid rgba(112, 83, 56, 0.79);
+    background: #a18e81;
+    color: #c7d6ff;
+}
+
+.dialog-infoHeadStyle1 {
+    border: 1px solid rgba(44, 44, 96, 0.97);
+    background: #6a83b0;
+    color: #c7d6ff;
+}
+
+.dialog-infoFootStyle1 {
+    border: 1px solid rgba(44, 44, 96, 0.97);
+    background: rgba(62, 92, 158, 0.96);
+    color: #c7d6ff;
+}
+
+/* Dialog end ----------- */
+
+/* Badge ----------- */
+.myBadge-smallGrayBlue {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 10px;
+    font-weight: bold;
+    color: #ffffff;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: rgba(56, 86, 147, 0.8);
+    border-radius: 10px;
+}
+
+.myBadge-midGrayBlue {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #c7ffff;
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: rgba(57, 115, 145, 0.8);
+    border-radius: 10px;
+}
+
+.myBadge-bigYellowBlue {
+    display: inline-block;
+    min-width: 10px;
+    padding: 3px 7px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(255, 245, 86, 0.8);
+    line-height: 1;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-align: center;
+    background-color: rgba(102, 162, 165, 0.95);
+    border-radius: 10px;
+}
+
+/* Label ----------- */
+.mylabel-info {
+    color: rgba(57, 115, 145, 0.8);
+    background-color: rgba(92, 131, 169, 0.36);
+}
+
+.mylabel-info2 {
+    color: rgba(57, 115, 145, 0.8);
+    background-color: rgba(199, 255, 255, 0.36);
+}

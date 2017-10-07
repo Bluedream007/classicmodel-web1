@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="ClassicMdApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="ClassicMdApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="ClassicMdApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="ClassicMdApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App - Booststrap Test1</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../resources/css/lib/html5-boilerplate/normalize.css">
+  <link rel="stylesheet" href="../resources/css/lib/html5-boilerplate/main.css">
+  <script src="../resources/js/lib/html5-boilerplate/vendor/modernizr-2.8.3.min.js"></script>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="../resources/js/lib/html5-boilerplate/vendor/jquery-1.11.3.min.js"></script>
+
+  <!-- Bootstrap CDN -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script> -->
+  <script src="../resources/js/lib/bootstrap/bootstrap.min.js"></script>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="../resources/js/lib/angular/angular.js"></script>
+  <script src="../resources/js/lib/angular/angular-route.js"></script>
+
+  <!-- my stylecheet css section -->
+  <link rel="stylesheet" href="../resources/css/template/appTmpl_1.css">
+  <link rel="stylesheet" href="../resources/css/myBootstrap/bootstrap-MyStyle-Blue_1.0.css" />
+  <!-- my stylecheet -->
+  <!--<link rel="stylesheet" href="../resources/css/myTheme/myGreenStyle_1.css" />-->
+  <link rel="stylesheet" href="../resources/css/myTheme/myBlueStyle_1.css" />
+
+  <!-- my js section -->
+  <script src="../resources/js/router/index-route_app1.js"></script>
+  <script src="../resources/js/router/main_route1.js"></script>
+  <script src="../resources/js/filters/filters.js "></script>
+
+  <script src="../resources/js/controller/comapnyInfo_controller.js"></script>
+  <script src="../resources/js/controller/salesInfo_controller.js"></script>
+  <script src="../resources/js/controller/CustomersController_1.js"></script>
+  <script src="../resources/js/controller/OrderController_1.js"></script>
+  <script src="../resources/js/controller/OrderDetailController_1.js"></script>
+
+  <!--
+  <script src="view1/view1.js"></script>
+  <script src="view2/view2.js"></script>
+  <script src="components/version/version.js"></script>
+  <script src="components/version/version-directive.js"></script>
+  <script src="components/version/interpolate-filter.js"></script>
+  -->
+
+  <!-- The fixed navbar will overlay your other content, unless you add padding to the top of the body.
+       Tip: By default, the navbar is 50px high. Make sure to include this after the core Bootstrap CSS. -->
+  <style type="text/css">
+    body { padding-top: 70px; }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <span><img src="../resources/images/32x32/livejournal_32.png"></span>
+        ClassicModels System</a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Home</a></li>
+        <!-- Company Info. -->
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Company Info.<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Bulltine Info.</a></li>
+            <li class="disabled"><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Detail Info.</li>
+            <li><a href="#/CompanyInfo/Employee">Employee</a></li>
+            <li><a href="#/CompanyInfo/Office">Office</a></li>
+            <li class="disabled"><a href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sales Info.<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#/SalesInfo/Customers">Customers Data</a></li>
+            <li><a href="#/SalesInfo/Sales">Sales Repr.</a></li>
+            <li class="disabled"><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Order Info.</li>
+            <li><a href="#/SalesInfo/Orders">Orders Data</a></li>
+            <li><a href="#/SalesInfo/OrderDetails">OrderDetails Data</a></li>
+            <li class="disabled"><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#/view1">About</a></li>
+        <li><a href="#/view2">Contact</a></li>
+      </ul>
+    </div><!-- .nav-collapse -->
+  </div>
+</nav>
+
+<!-- Common parts -->
+<div class="container">
+  <!-- Page header -->
+  <div class="starter-template">
+    <h4 style="color: skyblue"> ClassicModels template 1</h4>
+    <h1 ng-bind-html="globalData.currentTitle"></h1>
+    <!--
+    <p class="lead">Use this document as a way to quickly start any new project.<br>
+       All you get is this text and a mostly barebones HTML document.</p>
+       -->
+  </div>
+  <!-- Quick Link/Menu -->
+  <ul class="menu">
+    <li><a href="#/SalesInfo/Customers">Customers</a></li>
+    <li><a href="#/SalesInfo/Orders">Order Info.</a></li>
+    <!--<li><a href="#/pages/Pview1">pages Pview1</a></li>-->
+  </ul>
+
+  <!--[if lt IE 7]>
+  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ng-view></div>
+
+  <!-- page foot -->
+  <hr>
+  <div>[End of Page]<br>
+    <div align="center">
+      Copyright
+      <span class="glyphicon glyphicon-copyright-mark" aria-hidden="true"></span>
+      2016 Bluedream Studio, All Rights Reserved.
+    </div>
+  </div>
+  <!--<div>Angular seed app: v<span app-version></span></div>-->
+
+
+</div><!-- /.container -->
+
+
+</body>
+</html>

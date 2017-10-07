@@ -1,0 +1,449 @@
+<!--
+  * include in
+  1.index-route_1.html
+-->
+<!-- start scope of Controller, code in OrdersController_1.js -->
+<!--
+<script src="../../resources/js/controller/OrderController_1.js"></script>
+-->
+<!--<div ng-controller="OrderListCtrl">-->
+<div ng-controller="OrderDetailListCtrl">
+    <div class="alert alert-error" ng-show="error">
+       {{errorMessage}}
+    </div>
+
+
+    <!-- Order Data Form; Bootstrap 3 -->
+    <hr/>
+    <h3>Order Detail Form</h3>
+
+    <!-- Switch form between Order and Customer data -->
+    <div class="panel panel-default panel-info" id="pnlDataManipulation">
+        <!--<div class="panel-heading">Order Form</div>-->
+        <div class="panel-heading">{{txtManipulationFormHead}}</div>
+        <div class="panel-body">
+            <!-- Search Func. -->
+            <div class="col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input name="qryCondition"  type="radio" aria-label="queryByOrderNumber">OrderNo.
+                    </span>
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                         <button class="btn btn-primary disabled" type="button">
+                             <span class="glyphicon glyphicon-search"
+                                   aria-hidden="true"
+                                   ></span>
+                             Go!</button>
+                    </span>
+                </div> <!-- /input-group -->
+            </div> <!-- /Search Func. End -->
+
+            <!-- switch button -->
+            <div class="btn-group" role="group" aria-label="btngSwithDataFrom">
+                <!--<button type="button" class="btn btn-default" ng-click="isShow = false" ng-disabled="isDisableVal">ShowOrderForm</button>-->
+                <button type="button" class="btn btn-default" ng-click="clickShowOrderForm(false)" ng-disabled="isDisableVal">ShowOrderForm</button>
+                <button type="button" class="btn btn-default" ng-click="clickShowOrderForm(true)" ng-disabled="isDisableVal">ShowCustForm</button>
+            </div>
+            <hr>
+
+            <!-- OrderDetail Form -->
+            <div id="idOrdetailForm" ng-hide="isShownOrdetailFrm">
+                <!-- -->
+                <form name="OrdetailEditForm" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="idOrdetailNumber" class="col-sm-2 control-label">Order Number</label>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="idOrdetailNumber"
+                                       ng-model="orderDetailData.orderNumber"
+                                       placeholder="Order Number" readonly>
+                                <!-- CollapsedOrderForm Button -->
+                                <span class="input-group-btn">
+                                   <button id="btnCollOrderFrom" type="button" class="btn btn-info"
+                                    data-toggle="collapse" data-target="#idCollapseOrderForm"
+                                    aria-expanded="ariaExpanded_value"
+                                    aria-controls="idCollapseOrderForm" ng-click="clickCollapseOrderForm()">
+                                           <span class="{{gicCollOrderFromIcon}}" aria-hidden="true"></span>
+                                            {{txtCollOrderFrom}}
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                        <label for="idOrdetailLineNumber" class="col-sm-2 control-label">Order LineNumber</label>
+                        <div class="col-sm-4">
+                            <!--
+                            <input type="text" class="form-control" id="idOrdetailLineNumber"
+                                   ng-model="orderDetailData.orderLineNumber"
+                                   placeholder="Order LineNumber" readonly min="10">
+                            -->
+                            <span id="idOrdetailLineNumber" class="myBadge-bigYellowBlue">{{orderDetailData.orderLineNumber}}</span>
+
+                        </div>
+                    </div>
+                    <!-- TODO -2016/01/31 ; Choose ProdLine, Pop up a ProdList dialog -->
+                    <div class="form-group">
+                        <label for="idOrdetailProdCode" class="col-sm-2 control-label">productCode</label>
+                        <div class="col-sm-4">
+                            <input id="idOrdetailProdCode" name="inpOrdetailProdCode" type="text"
+                                   class="form-control"
+                                   ng-model="orderDetailData.productCode"
+                                   placeholder="productCode" required>
+                            <span class="error" ng-show="OrdetailEditForm.inpOrdetailProdCode.$error.required">Required!</span><br>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="input-group">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-disabled="isDisableQryRepSales">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        Query</button>
+
+                                    <button type="button" class="btn btn-default dropdown-toggle"
+                                            ng-disabled="isDisableQryRepSales" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false"
+                                            ng-click="fetchProdLineList()">Quick List<span class="caret"></span></button>
+                                    <!-- for test
+                                    <ul class="dropdown-menu dropdown-menu-left list-group">
+                                        <li><button type="button" class="list-group-item"
+                                                    data-toggle="modal" data-target="#idProdListHelpDialog">
+                                             PL001 ProdLine01</button></li>
+                                        <li><button type="button" class="list-group-item">PL002 ProdLine02</button></li>
+                                        <li><button type="button" class="list-group-item">PL003 ProdLine03</button></li>
+                                    </ul>
+                                    -->
+
+                                    <ul class="dropdown-menu dropdown-menu-left list-group">
+                                        <li ng-repeat='ProdLineList in ProdLineList'>
+                                            <button type="button" class="list-group-item"
+                                                    data-toggle="modal" data-target="#idProdListHelpDialog"
+                                                    ng-click="selectProdLine(ProdLineList)">
+                                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                                                <span class="label">{{ProdLineList.productLine}}</span>
+                                                </button></li>
+                                    </ul>
+
+                                    <!-- Enable the RepSales Changed Func. -->
+                                    <button type="button" class="btn btn-default" ng-click="enableQryProdNo()" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+                                </span>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idOrdetailQty" class="col-sm-2 control-label">Quantity Ordered</label>
+
+                        <div class="col-sm-4">
+                            <input id="idOrdetailQty" name="inpOrdetailQty" type="number" class="form-control"
+                                   ng-model="orderDetailData.quantityOrdered"
+                                   placeholder="Quantity Ordered" value="0">
+                            <span class="error" ng-show="OrdetailEditForm.inpOrdetailQty.$error.required">Required!</span><br>
+                        </div>
+
+                        <label for="idOrdetailPrice" class="col-sm-2 control-label">Price Each</label>
+
+                        <div class="col-sm-4">
+                            <input id="idOrdetailPrice" name="inpOrdetailPrice" type="number" class="form-control"
+                                   ng-model="orderDetailData.priceEach"
+                                   placeholder="Price Each" readonly>
+                            <span class="error" ng-show="OrdetailEditForm.inpOrdetailPrice.$error.required">Required!</span><br>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-primary"
+                                    ng-disabled="!orderData.orderNumber"
+                                    ng-hide="editMode"
+                                    ng-click="addNewOrder(orderDetailData)">Add OrderDetail
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                    ng-disabled="!orderData.orderNumber"
+                                    ng-show="editMode"
+                                    ng-click="updateOrderDetailForm(orderDetailData)">
+                                <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <!-- Trigger the dialog modal(id="RestConfirmDialog") with a button -->
+                            <button type="button" class="btn btn-default"
+                                    ng-disabled="!orderData.orderNumber"
+                                    data-toggle="modal" data-target="#RestConfirmDialog">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                Reset
+                            </button>
+
+                            <button type="button" class="btn btn-warning"
+                                    ng-disabled="!editMode"
+                                    ng-click="cancelOrderForm()">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                Cancel
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+                <!-- CollapsedOrder Form  -->
+                <hr/>
+                <div class="collapse" id="idCollapseOrderForm">
+                    <div class="well">
+                        <div class="panel panel-success margin-bottom-40">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-tasks"></i>Order From</h3>
+                            </div>
+                            <div class="panel-body">
+                                <!-- Order Form -->
+                                <form name="OrderEditForm" class="form-horizontal">
+                                    <!-- show partial Customer data; or show from(todo) -->
+                                    <div class="form-group">
+                                        <label for="idOrderCustNumber" class="col-sm-2 control-label">Customer Number</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="idOrderCustNumber"
+                                                   ng-model="customerData.customerNumber"
+                                                   placeholder="Customer Number" ng-readonly="isOrderFrmReadonly" min="10">
+                                        </div>
+
+                                        <label for="idOrderCustName" class="col-sm-2 control-label">Customer Name</label>
+                                        <div class="col-sm-4">
+
+                                            <input id="idOrderCustName" name="inpOrderCustName" type="text" class="form-control"
+                                                   ng-model="customerData.customerName"
+                                                   placeholder="Customer Name" ng-readonly="isOrderFrmReadonly">
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
+                                        <label for="idOrderNumber" class="col-sm-2 control-label">Order Number</label>
+
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control" id="idOrderNumber"
+                                                   ng-model="orderData.orderNumber"
+                                                   placeholder="Order Number" ng-readonly="isOrderFrmReadonly" min="10">
+                                        </div>
+
+                                        <label for="idOrderDate" class="col-sm-2 control-label">Order Date</label>
+
+                                        <div class="col-sm-4">
+
+                                            <input id="idOrderDate" name="inpOrderDate" type="date" class="form-control"
+                                                   ng-model="orderData.orderDate"
+                                                   placeholder="yyyy-MM-dd" min="2003-01-01" ng-readonly="isOrderFrmReadonly">
+                                            <span>{{orderData.orderDate}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="idOrderRequiredDate" class="col-sm-2 control-label">Required Date</label>
+                                        <div class="col-sm-4">
+                                            <input id="idOrderRequiredDate" name="inpOrderRequiredDate" type="date" class="form-control"
+                                                   ng-model="orderData.requiredDate"
+                                                   placeholder="yyyy-MM-dd" ng-readonly="isOrderFrmReadonly">
+                                        </div>
+
+                                        <label for="idOrderShippedDate" class="col-sm-2 control-label">Shipped Date</label>
+
+                                        <div class="col-sm-4">
+                                            <input id="idOrderShippedDate" name="inpOrderShippedDate" type="date" class="form-control"
+                                                   ng-model="orderData.shippedDate"
+                                                   placeholder="yyyy-MM-dd" ng-readonly="isOrderFrmReadonly">
+                                        </div>
+                                    </div>
+                                    <!-- TODO dropdown list for Status -->
+                                    <div class="form-group">
+                                        <label for="idOrderStatus" class="col-sm-2 control-label">Order Status</label>
+
+                                        <div class="col-sm-2">
+                                            <input type="text" class="form-control" id="idOrderStatus"
+                                                   ng-model="orderData.status"
+                                                   placeholder="Order Status" min="10" ng-readonly="isOrderFrmReadonly">
+
+                                        </div>
+                                    </div>
+                                </form> <!-- /Order Form -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div> <!-- /CollapsedOrder Form  -->
+            </div> <!-- /OrderDetail Form -->
+
+            <hr>
+            <!-- to do: status_bar message -->
+            <div class="row">
+                <div class="alert alert-success pull-center small">{{status_bar + 'status_bar'}}
+                </div>
+            </div>
+        </div>
+    </div> <!--<div id="tabDataManipulation">-->
+
+    <!-- Modal; Show dialog to confirm resetting -->
+    <div class="modal fade" id="RestConfirmDialog" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header dialog-infoHeadStyle1">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                        Confirmation</h4>
+                </div>
+                <div class="modal-body dialog-defaultBodyStyle1">
+                    <p></br></p>
+                    <p>Clear all data in this form.</p>
+                    <p></br></p>
+                </div>
+                <div class="modal-footer dialog-defaultFootStyle1">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                        Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetCustForm()">
+                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                        Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal; Show Prod List helping dialog (not finished yet)-->
+    <div class="modal fade" id="idProdListHelpDialog" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header dialog-infoHeadStyle1">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel2">Product List</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="well well-sm">
+                        <div class="panel panel-info margin-bottom-40">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-tasks"></i>Order Details Table</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form name="ProdInfoForm" class="form-horizontal">
+                                    <div class="form-group">
+                                    <div class="media">
+                                        <div class="media-left media-middle">
+                                            <a href="{{prodLineData.htmlDescription}}">
+                                                <img class="media-object" src="{{prodLineData.image}}" alt="ProdLine Image">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{prodLineData.productLine}}</h4>
+                                            {{prodLineData.textDescription}}
+                                        </div>
+                                    </div>
+                                    </div>
+                                </form>
+                                <hr>
+                                <!-- Product List Table (help window) -->
+                                <h4 ng-show="ProductList.length == 0"><span>Product List is Empty</span></h4>
+                                <table class="table table-bordered table-striped table-hover" ng-show="ProductList.length > 0">
+                                    <thead>
+                                    <tr class="gridHeadStyle2">
+                                        <th class="gridHeadBoderStyle2" style="width:25px;">Selected</th>
+                                        <th class="gridHeadBoderStyle2" style="width:25px;">productCode</th>
+                                        <th class="gridHeadBoderStyle2">productName</th>
+                                        <th class="gridHeadBoderStyle2">quantityInStock</th>
+                                        <th class="gridHeadBoderStyle2">buyPrice</th>
+                                        <th class="gridHeadBoderStyle2">msrp</th>
+                                        <!--<th style="text-align: center;">Diesel</th> -->
+                                        <!--<th style="text-align: center;">Action</th>-->
+                                        <th class="gridHeadBoderStyle2">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                      <!--<tr ng-repeat="Product in ProductList | orderBy:productCode" class="gridCellStyle1">-->
+                                      <tr ng-repeat-start="Product in ProductList">
+                                          <td><input name="selItem" type="radio"
+                                                     aria-label="selProdItem"
+                                                     ng-value="Product.productCode"
+                                                     ng-click="clickProdItem(Product)"
+                                                     ng-disabled="Product.quantityInStock <=0">
+                                          </td>
+                                          <td class="gridCellBoderStyle1" style="text-align: center;">
+                                              <span class="myBadge-bigYellowBlue">{{Product.productCode}}</span>
+                                          </td>
+                                          <td>{{Product.productName}}</td>
+                                          <td>{{Product.quantityInStock}}</td>
+                                          <td>{{Product.buyPrice}}</td>
+                                          <td>{{Product.msrp}}</td>
+                                          <!--<td style="text-align: center;width: 20px;"><span ng-show="train.diesel" class="icon-ok"></span></td> -->
+                                          <td style="width:150px;text-align: center;">
+                                              <button class="btn btn-success btn-xs"
+                                                      ng-click="isCollapsed = !isCollapsed">
+                                                  <span class="glyphicon glyphicon-collapse-down" aria-hidden="true"></span>
+                                                  Display Detail
+                                              </button>
+                                          </td>
+                                       </tr>
+                                       <tr ng-repeat-end ng-show="isCollapsed">
+                                          <td colspan=7>
+                                              <!-- CollapsedProd Details Table  -->
+                                              <div id="idCollapseProdInfo">
+                                                  <div class="panel panel-info margin-bottom-10">
+                                                      <div class="panel-body">
+                                                          <form name="ProdInfoForm" class="form-horizontal">
+                                                              <div class="form-group">
+                                                                  <label class="col-sm-2 control-label mylabel-info">Product Code</label>
+                                                                  <label class="col-sm-4 text-left">{{Product.productCode}}</label>
+                                                                  <label class="col-sm-2 control-label mylabel-info"">Product Name</label>
+                                                                  <label class="col-sm-4 text-left">{{Product.productName}}</label>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                  <label class="col-sm-2 control-label mylabel-info">Product Scale</label>
+                                                                  <label class="col-sm-4 text-left">{{Product.productScale}}</label>
+                                                                  <label class="col-sm-2 control-label mylabel-info">Product Vendor</label>
+                                                                  <label class="col-sm-4 text-left">{{Product.productVendor}}</label>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                  <label class="col-sm-2 control-label mylabel-info">buyPrice</label>
+                                                                  <label class="col-sm-4 text-left">{{Product.buyPrice}}</label>
+                                                                  <label class="col-sm-2 control-label mylabel-info">msrp</label>
+                                                                  <label class="col-sm-4 text-left">{{Product.msrp}}</label>
+                                                              </div>
+                                                              <div class="form-group">
+                                                                  <label class="col-sm-2 control-label mylabel-info">Description</label>
+                                                                  <label class="col-sm-10 text-left mylabel-info2">{{Product.productDescription}}</label>
+                                                              </div>
+                                                          </form>
+                                                      </div>
+                                                  </div>
+
+                                              </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                </table>
+                                <!-- for test
+                                <p>defaultSelProdItem: {{defaultSelProdItem | json}}</p>
+                                -->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!--
+                    <form role="form">
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter email" />
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="Password" />
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                    -->
+                </div>
+                <div class="modal-footer dialog-defaultFootStyle1">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <!--<button type="button" class="btn btn-primary" ng-click="setSelProdItem()">Pick up</button>-->
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+<!-- Lower half of page ************************************************************************ -->
+    <!-- It's empty -->
+</div><!-- end scope of OrderDetailListCtrl -->

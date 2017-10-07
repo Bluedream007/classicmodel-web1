@@ -1,0 +1,182 @@
+<p>This is the partial for companyInfo-office.</p>
+
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Dropdown
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+    <li><a href="#">Action</a></li>
+    <li><a href="#">Another action</a></li>
+    <li><a href="#">Something else here</a></li>
+    <li role="separator" class="divider"></li>
+    <li><a href="#">Separated link</a></li>
+  </ul>
+</div>
+
+<div class="panel panel-default panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel title</h3>
+    <div class="dropdown navbar-right" align="right">
+      <button class="btn btn-default dropdown-toggle btn-xs" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        <span class="caret"></span>
+        <span class="glyphicon glyphicon-tasks" aria-hidden="true"></span> Dropdown Function
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="panel-body">
+    <table class="table">
+    <tr>
+      <td>
+        <!-- vertical dropdown list at left side -->
+        <div class="btn-group-vertical navbar-left" role="group">
+          <button type="button" class="btn btn-default">1</button>
+          <button type="button" class="btn btn-default">2</button>
+
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+              Dropdown
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Dropdown link</a></li>
+              <li><a href="#">Dropdown link</a></li>
+            </ul>
+          </div>
+        </div>
+      </td>
+      <td width="90%" align="left">
+
+        <!-- Table -->
+        <table class="table">
+          <tr style="background-color: cadetblue">
+            <td>Item No</td>
+            <td>First Name</td>
+            <td>Last Name</td>
+            <td>Score</td>
+            <td>Func. Button</td>
+          </tr>
+          <tr>
+            <td><span class="badge" style="background-color: #ffd39c">01</span></td>
+            <td>Jill</td>
+            <td>Smith</td>
+            <td>50</td>
+            <td align="right">
+              <span>
+               <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">Edit</button>
+                <button type="button" class="btn btn-default">Delete</button>
+               </div>
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td><span class="badge" style="background-color: #ffd39c">02</span></td>
+            <td>Eve</td>
+            <td>Jackson</td>
+            <td>94</td>
+            <td align="right">
+              <span>
+               <div class="btn-group" role="group">
+                 <button type="button" class="btn btn-default">Edit</button>
+                 <button type="button" class="btn btn-default">Delete</button>
+               </div>
+              </span>
+            </td>
+          </tr>
+        </table>
+
+        <!-- TODO:2016/01/10 a form -->
+        <div align="center">
+          <link rel="stylesheet" href="/app/css/FormTempl_1/form-elements2.css">
+          <link rel="stylesheet" href="/app/css/FormTempl_1/form-style2.css">
+
+          <div class="form-box">
+            <div class="form-top">
+              <div class="form-top-left">
+                <h3>Data Manipulation</h3>
+
+                <p>Enter username and password into form:</p>
+              </div>
+              <div class="form-top-right">
+                <i class="fa fa-lock"></i>
+              </div>
+            </div>
+            <div class="form-bottom">
+              <form role="form" action="" method="post" class="login-form">
+                <div class="form-group">
+                  <label class="sr-only" for="form-username">Username</label>
+                  <input type="text" name="form-username" placeholder="Username..." class="form-username form-control"
+                         id="form-username">
+                </div>
+                <div class="form-group">
+                  <label class="sr-only" for="form-password">Password</label>
+                  <input type="password" name="form-password" placeholder="Password..."
+                         class="form-password form-control" id="form-password">
+                </div>
+                <button type="submit" class="btn">save</button>
+                <button type="submit" class="btn">cancel</button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- List group -->
+        <div class="list-group">
+          <a href="#" class="list-group-item active">
+            <span><span class="badge">01</span>Cras justo odio</span>
+          </a>
+          <a href="#" class="list-group-item">
+            <span class="badge">02</span>
+            Dapibus ac facilisis in</a>
+          <a href="#" class="list-group-item">
+            <span class="badge">03</span>
+            Morbi leo risus</a>
+          <a href="#" class="list-group-item">
+            <span class="badge">04</span>
+            Porta ac consectetur ac</a>
+          <a href="#" class="list-group-item">
+            <span class="badge">05</span>
+            Vestibulum at eros</a>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td width="90%" align="center">
+        <!-- pagination -->
+        <nav style="background-color: rgba(39, 105, 90, 0.45)">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </td>
+    </tr>
+  </table>
+  </div> <!-- panel-body -->
+
+
+</div>

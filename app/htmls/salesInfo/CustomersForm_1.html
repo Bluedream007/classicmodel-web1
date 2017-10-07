@@ -1,0 +1,392 @@
+<!--
+  * include in
+  1.index-route_1.html
+-->
+<!-- xxx start scope of Controller, CustListCtrl in CustomerController_2.js xxxx -->
+<!-- start scope of Controller, CustListCtrl in CustomerController_1.js -->
+<div ng-controller="CustListCtrl">
+
+    <div class="alert alert-error" ng-show="error">
+       {{errorMessage}}
+    </div>
+
+    <!-- Customers Data Form; Bootstrap 3 -->
+    <hr/>
+    <h3>Customer Infomation</h3>
+
+    <!-- Switch form between Customers and Employee data -->
+    <div class="panel panel-default panel-info" id="pnlDataManipulation">
+        <div class="panel-heading">{{txtManipulationFormHead}}</div>
+        <div class="panel-body">
+            <!-- Search Func. (By CustNo./Rep.SalesNo.)-->
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <input name="qryCondition" type="radio"
+                               aria-label="queryByCustNumber"
+                               ng-model="qryCustCondition"
+                               ng-value="qryCustCondList[0].name">{{qryCustCondList[0].displayTxt}}
+                    </span>
+                    <span class="input-group-addon">
+                        <input name="qryCondition"  type="radio"
+                               aria-label="queryBySalesNumber"
+                               ng-model="qryCustCondition"
+                               ng-value="qryCustCondList[1].name">{{qryCustCondList[1].displayTxt}}
+                    </span>
+                    <span>
+                        <input name="qryCondData" ng-model="qryCondValue" type="text"
+                               class="form-control" placeholder="Search by....">
+                    </span>
+                    <span class="input-group-btn">
+                         <button class="btn btn-primary" type="button" ng-click="qryCustomerByCond()">
+                             <span class="glyphicon glyphicon-search"
+                                   aria-hidden="true"></span>
+                             Go!</button>
+                    </span>
+                </div> <!-- /input-group -->
+            </div> <!-- /Search Func. End -->
+
+            <!-- switch button -->
+            <div class="btn-group" role="group" aria-label="btngSwithDataFrom">
+                <button type="button" class="btn btn-default" ng-click="clickShowCustForm(true)" ng-disabled="isDisableVal">ShowCustForm</button>
+                <button type="button" class="btn btn-default" ng-click="clickShowCustForm(false)" ng-disabled="isDisableVal">ShowEmpForm</button>
+            </div>
+            <hr>
+            <!-- Customers Form -->
+            <div id="idCustomerForm" ng-show="isShownCustFrm">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="idCustNumber" class="col-sm-2 control-label">Customer Number</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="idCustNumber"
+                                   ng-model="customer.customerNumber"
+                                   placeholder="Customer Number" readonly min="10">
+                        </div>
+
+                        <label for="idCustName" class="col-sm-2 control-label">Customer Name</label>
+
+                        <div class="col-sm-4">
+
+                            <input type="text" class="form-control" id="idCustName"
+                                   ng-model="customer.customerName"
+                                   placeholder="Customer Name" required min="20">
+                            <span class="error" ng-show="CustEditForm.inpCustName.$error.required">Required!</span><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="idContactLastName" class="col-sm-2 control-label">Contact Last
+                            Name</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="idContactLastName"
+                                   ng-model="customer.contactLastName"
+                                   placeholder="Contact Last Name" required min="20">
+                            <span class="error" ng-show="CustEditForm.inpCustName.$error.required">Required!</span><br>
+                        </div>
+
+                        <label for="idContactFirstName" class="col-sm-2 control-label">Contact First
+                            Name</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="idContactFirstName"
+                                   ng-model="customer.contactFirstName"
+                                   placeholder="Contact First Name" required min="20">
+                            <span class="error" ng-show="CustEditForm.inpCustName.$error.required">Required!</span><br>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="idCreditLimit" class="col-sm-2 control-label">Credit Limit</label>
+
+                        <div class="col-sm-2">
+                            <input type="number" class="form-control" id="idCreditLimit"
+                                   ng-model="customer.creditLimit"
+                                   placeholder="Credit Limit" required min="10">
+                            <span class="add-on">NT$</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" ng-model="train.diesel">Is effective
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Customers Maintipulation Tools Bar -->
+                    <div class="form-group"> <!-- Tools Bar -->
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="button" class="btn btn-primary"
+                                    ng-disabled="!customer.customerName || !customer.creditLimit"
+                                    ng-hide="editMode"
+                                    ng-click="addNewCustomer(customer)">Add Customer
+                            </button>
+                            <button type="button" class="btn btn-primary"
+                                    ng-disabled="!customer.customerName || !customer.creditLimit"
+                                    ng-show="editMode"
+                                    ng-click="updateCustomer(customer)">
+                                <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <!--
+                            <button type="button" class="btn btn-default" ng-click="resetCustForm()">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                Reset
+                            </button>
+                            -->
+                            <!-- Trigger the dialog modal(id="RestConfirmDialog") with a button -->
+                            <button type="button" class="btn btn-default"
+                                    ng-disabled="!customer.customerName"
+                                    data-toggle="modal" data-target="#RestConfirmDialog">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                Reset
+                            </button>
+
+                            <button type="button" class="btn btn-warning"
+                                    ng-click="cancelCustForm()"
+                                    ng-disabled="!editMode">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                Cancel
+                            </button>
+
+                            <button id="btnCollOrderDetails" type="button" class="btn btn-info"
+                                    ng-disabled="!editMode"
+                                    ng-click="switchPage('/SalesInfo/Orders/',customer)">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                Switch to Orders Page
+                            </button>
+
+                        </div>
+                    </div> <!-- Tools Bar end -->
+                </form>
+            </div> <!-- Customers Form End -->
+
+            <!-- Employee Form begin -->
+            <div id="idEmployeeForm" ng-hide="isShownCustFrm">
+
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="idEmpNumber" class="col-sm-2 control-label">Employee Number</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="idEmpNumber"
+                                   ng-model="employee.employeeNumber"
+                                   placeholder="Employee Number" readonly min="10">
+                        </div>
+                        <div class="input-group col-sm-4">
+                            <div class="input-group-btn">
+                                <!-- Button and dropdown menu -->
+                                <div class="input-group-btn">
+
+                                    <button type="button" class="btn btn-default" ng-disabled="isDisableQryRepSales">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        Query</button>
+                                    <button type="button" class="btn btn-default dropdown-toggle" ng-disabled="isDisableQryRepSales" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Quick List<span class="caret"></span></button>
+                                    <!--
+                                    <ul class="dropdown-menu dropdown-menu-left list-group">
+                                        <li><button type="button" class="list-group-item">0001 Emp01</button></li>
+                                        <li><button type="button" class="list-group-item">0002 Emp02</button></li>
+                                        <li><button type="button" class="list-group-item btn-info">0003 Emp03</button></li>
+                                    </ul>
+                                    -->
+                                    <ul class="dropdown-menu dropdown-menu-left list-group">
+                                        <li ng-repeat='repSales in RepSalesList'>
+                                            <button type="button" class="list-group-item" ng-click="selectRepSales(repSales)">
+                                                <span class="badge">{{repSales.employeeNumber}}</span>
+                                            {{repSales.lastName + " " + repSales.firstName}}</button></li>
+                                    </ul>
+                                    <!-- Enable the RepSales Changed Func. -->
+                                    <button type="button" class="btn btn-default" ng-click="enableQryRepSales()" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                                    </button>
+
+                                </div><!-- /btn-group -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="idEmpLastName" class="col-sm-2 control-label">Last Name</label>
+
+                        <div class="col-sm-4">
+
+                            <input type="text" class="form-control" id="idEmpLastName"
+                                   ng-model="employee.lastName"
+                                   placeholder="Employee Last Name" required min="20">
+                        </div>
+                        <label for="idEmpFirstName" class="col-sm-2 control-label">First Name</label>
+
+                        <div class="col-sm-4">
+
+                            <input type="text" class="form-control" id="idEmpFirstName"
+                                   ng-model="employee.firstName"
+                                   placeholder="Employee First Name" required min="20">
+                        </div>
+                    </div>
+                    <div class="form-group"> <!-- TODO change ng-model for employee -->
+                        <label for="idEmpExtension" class="col-sm-2 control-label">Extension</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="idEmpExtension"
+                                   ng-model="employee.extension"
+                                   placeholder="Extension" required min="20">
+                        </div>
+
+                        <label for="idEmpEmail" class="col-sm-2 control-label">E-Mail</label>
+
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="idEmpEmail"
+                                   ng-model="employee.email"
+                                   placeholder="E-Mail" required min="20">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+
+                            <button type="button" class="btn btn-primary"
+                                    ng-disabled="!employee.lastName || !employee.firstName"
+                                    ng-show="editMode"
+                                    ng-click="updateRepSales(employee)">
+                                <span class="glyphicon glyphicon-floppy-saved" aria-hidden="true"></span>
+                                Save
+                            </button>
+                            <button type="button" class="btn btn-warning" ng-click="cancelRepSalesForm()">
+                                <span class="glyphicon glyphicon-repeat" aria-hidden="true"></span>
+                                Cancel
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </div> <!-- Employee Form end -->
+            <hr>
+            <!-- to do: status_bar message -->
+            <div class="row">
+                <div class="alert alert-success pull-center small">{{status_bar + 'status_bar'}}
+                </div>
+            </div>
+        </div>
+    </div> <!--<div id="tabDataManipulation">-->
+
+    <!-- Modal; Show dialog to confirm resetting -->
+    <div class="modal fade" id="RestConfirmDialog" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header dialog-infoHeadStyle1">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">
+                        <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                        Confirmation</h4>
+                </div>
+                <div class="modal-body dialog-defaultBodyStyle1">
+                    <p></br></p>
+                    <p>Clear all data in this form.</p>
+                    <p></br></p>
+                </div>
+                <div class="modal-footer dialog-defaultFootStyle1">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+                        Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="resetCustForm()">
+                        <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+                        Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Lower half of page ************************************************************************ -->
+    <hr/>
+    <h3>Customer List</h3>
+
+    <div class="alert alert-warning" ng-show="CustomerList.length == 0">
+        <h4>No Customer found</h4>
+    </div>
+    <!-- Customer Data List -->
+    <div ng-show="CustomerList.length > 0">
+        <div class="nav navbar-nav navbar-left">
+            <button class="btn btn-info" ng-click="fetchAllCustomers()">Fetch
+                All Customer Data
+            </button>
+        </div>
+
+
+        <div class="nav navbar-nav navbar-left">
+            <button class="btn btn-danger" ng-show="CustomerList.length > 1" ng-click="removeAllCustomers()">Remove
+                All Customer Data
+            </button>
+        </div>
+
+
+        <table class="table table-bordered table-striped table-hover" ng-show="CustomerList.length > 0">
+            <thead>
+            <tr class="gridHeadStyle1">
+                <!--tr class="gridHeaderStyle" -->
+                <!--
+                <th style="text-align: center; width: 25px;">customerNumber</th>
+                <th style="text-align: center;">customerName</th>
+                <th style="text-align: center;">creditLimit</th>
+                -->
+                <th class="gridHeadBoderStyle1" style="width:25px;">custNumber</th>
+                <th class="gridHeadBoderStyle1">customerName</th>
+                <th class="gridHeadBoderStyle1">creditLimit</th>
+                <!--<th style="text-align: center;">Diesel</th> -->
+                <!--<th style="text-align: center;">Action</th>-->
+                <th class="gridHeadBoderStyle1">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="customer in CustomerList | orderBy:predicate" class="gridCellStyle1">
+                <td class="gridCellBoderStyle1" style="text-align: center;"><span
+                        class="badge">{{customer.customerNumber}}</span>
+                </td>
+                <td>{{customer.customerName}}</td>
+                <td>{{customer.creditLimit}}</td>
+                <!--<td style="text-align: center;width: 20px;"><span ng-show="train.diesel" class="icon-ok"></span></td> -->
+                <td style="width:150px;text-align: center;">
+                    <button class="btn btn-warning btn-xs" ng-click="removeCustomer(customer.customerNumber)">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        Remove
+                    </button>
+                    <!--<button class="btn btn-mini btn-primary" ng-click="editCustomer(customer)">Edit</button>-->
+                    <button class="btn btn-success btn-xs" ng-click="editCustomer(customer)">
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        Edit
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <div class="container gridHeadStyle1">
+
+            <!--
+            <div class="nav navbar-nav navbar-left">
+                <button class="btn btn-danger" ng-show="CustomerList.length > 1" ng-click="removeAllCustomers()">Remove
+                    All Customer Data
+                </button>
+            </div>
+            -->
+            <div>
+                <nav class="nav navbar-nav navbar-left">
+                    <ul class="pagination">
+                        <li class="disabled">
+                         <span>
+                           <span aria-hidden="true">&laquo;</span>
+                         </span>
+                        </li>
+                        <li class="active">
+                            <span>1 <span class="sr-only">(current)</span></span>
+                        </li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+    </div> <!-- /Customer Data List -->
+
+</div><!-- end scope of Controller -->

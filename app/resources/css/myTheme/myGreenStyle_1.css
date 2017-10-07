@@ -1,0 +1,29 @@
+.gridStyle {
+    border: 1px solid rgb(212,212,212);
+    width: 400px;
+    height: 300px;
+}
+
+/* DataGrid - Green theme1 begin ----------- */
+.gridHeadBoderStyle1 {
+    border:solid 1px;
+    border-color: #057881;
+}
+
+.gridHeadStyle1 {
+    border: 1px solid #387038;
+    background: #7aba7b;
+    color: lightgoldenrodyellow;
+}
+
+.gridCellStyle1 {
+    border: 1px solid #387038;
+    background: #e6ffb8;
+    color: #146255;
+}
+
+.gridCellBoderStyle1 {
+    border:solid 1px;
+    border-color: #5c6e0a;
+}
+/* DataGrid - Green theme1 end ----------- */
