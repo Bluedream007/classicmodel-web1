@@ -18,5 +18,5 @@ ClassicModelsApp.constant('ClassicMdConfig', {
     // dataApiUrl: 'http://jbossews-bluedream.rhcloud.com/' // For OpenShift v2
     // dataApiUrl: 'http://classicmodel-augjs1-mytestprj1.193b.starter-ca-central-1.openshiftapps.com/classicmodel-ap1/'    // For OpenShift v3
 	//dataApiUrl: 'http://classicmodel-augjs1-mytestprj1.a3c1.starter-us-west-1.openshiftapps.com/classicmodel-ap1/'    // For OpenShift v3
-	dataApiUrl: 'http://classicwebap1-env.cay7budsje.us-west-2.elasticbeanstalk.com/'    // For AWS EB	
+	dataApiUrl: 'http://classicwebap1-env.cay7budsje.us-west-2.elasticbeanstalk.com/'    // For AWS EB
       });
